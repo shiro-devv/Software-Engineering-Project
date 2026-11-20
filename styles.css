@@ -1,0 +1,1654 @@
+/* ==========================================================================
+   Roll Call — student attendance
+   A custom design system layered on top of Streamlit.
+   ========================================================================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800&display=swap");
+
+:root {
+    --cream: #f8f6ee;
+    --navy: #1b3a5c;
+    --navy-button: #264c73;
+    --card: #c5d1d8;
+    --input: #b8cbdc;
+    --slate: #5b7690;
+    --tile: #243746;
+    --line: #aabcc7;
+    --lens: #e4edf1;
+    --white: #ffffff;
+    --error: #8e3b31;
+    --mascot-navy: #1b3a5c;
+    --sidebar-width: 208px;
+    --sidebar-pad: 26px;
+    --card-radius: 24px;
+    --squircle-radius: 70px;
+    --font: "Public Sans", "Segoe UI", Arial, sans-serif;
+}
+
+/* --------------------------------------------------------------------------
+   Streamlit chrome
+   -------------------------------------------------------------------------- */
+
+html,
+body,
+.stApp,
+[data-testid="stAppViewContainer"],
+[data-testid="stMain"] {
+    background: var(--cream) !important;
+    color: var(--navy);
+    font-family: var(--font);
+}
+
+html,
+body,
+[class*="css"] {
+    font-family: var(--font);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+#MainMenu,
+footer,
+header[data-testid="stHeader"],
+[data-testid="stToolbar"],
+[data-testid="stDecoration"],
+[data-testid="stStatusWidget"],
+[data-testid="stSidebarCollapsedControl"],
+[data-testid="stSidebarCollapseButton"],
+[data-testid="stSidebarResizeHandle"],
+[data-testid="collapsedControl"],
+[data-testid="stAppDeployButton"],
+[data-testid="stMainMenu"] {
+    display: none !important;
+}
+
+[data-testid="stMainBlockContainer"],
+[data-testid="stAppViewBlockContainer"],
+.block-container {
+    max-width: 1360px !important;
+    padding: 2.15rem 3rem 3.25rem 3rem !important;
+}
+
+[data-testid="stAppViewContainer"] > .main {
+    background: var(--cream) !important;
+}
+
+::selection {
+    background: var(--input);
+    color: var(--navy);
+}
+
+p,
+span,
+label,
+li,
+div[data-testid="stMarkdownContainer"] {
+    font-family: var(--font);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--navy);
+    font-family: var(--font);
+}
+
+a {
+    color: var(--navy-button);
+}
+
+/* A clean, visible keyboard focus ring for every custom and native control. */
+button:focus-visible,
+input:focus-visible,
+a:focus-visible {
+    outline: 3px solid #7f9fbc !important;
+    outline-offset: 2px !important;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Streamlit widgets: buttons and inputs
+   -------------------------------------------------------------------------- */
+
+div.stButton > button,
+[data-testid="stFormSubmitButton"] button,
+button[data-testid^="stBaseButton-"] {
+    min-height: 44px;
+    height: 44px;
+    padding: 0 22px !important;
+    border: 0 !important;
+    border-radius: 999px !important;
+    background: var(--input) !important;
+    color: var(--navy) !important;
+    box-shadow: none !important;
+    font-family: var(--font) !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+    transition: background-color 140ms ease, color 140ms ease !important;
+}
+
+div.stButton > button:hover,
+[data-testid="stFormSubmitButton"] button:hover,
+button[data-testid^="stBaseButton-"]:hover {
+    background-color: #adc1d2 !important;
+    border: 0 !important;
+    color: var(--navy) !important;
+}
+
+div.stButton > button:active,
+[data-testid="stFormSubmitButton"] button:active,
+button[data-testid^="stBaseButton-"]:active {
+    background-color: #a3b7ca !important;
+    color: var(--navy) !important;
+}
+
+div.stButton > button:disabled,
+button[data-testid^="stBaseButton-"]:disabled {
+    background: rgba(197, 209, 216, 0.55) !important;
+    color: rgba(27, 58, 92, 0.4) !important;
+    cursor: not-allowed !important;
+}
+
+div.stButton > button[data-testid="stBaseButton-primary"],
+button[data-testid="stBaseButton-primary"],
+[data-testid="stFormSubmitButton"] button[kind="primary"],
+div[data-testid="stFormSubmitButton"] button[kind="primary"] {
+    background: var(--navy-button) !important;
+    color: var(--white) !important;
+}
+
+div.stButton > button[data-testid="stBaseButton-primary"]:hover,
+button[data-testid="stBaseButton-primary"]:hover,
+[data-testid="stFormSubmitButton"] button[kind="primary"]:hover,
+div[data-testid="stFormSubmitButton"] button[kind="primary"]:hover {
+    background: var(--navy) !important;
+    color: var(--white) !important;
+}
+
+.stTextInput [data-baseweb="input"],
+.stTextInput [data-testid="stTextInputRootElement"] {
+    height: 50px;
+    border: 0 !important;
+    border-radius: 999px !important;
+    background: var(--input) !important;
+    box-shadow: none !important;
+    overflow: hidden;
+}
+
+.stTextInput [data-baseweb="base-input"] {
+    background: transparent !important;
+    border: 0 !important;
+}
+
+.stTextInput input {
+    height: 50px !important;
+    padding: 13px 20px !important;
+    border: 0 !important;
+    border-radius: 999px !important;
+    background: transparent !important;
+    color: var(--navy) !important;
+    -webkit-text-fill-color: var(--navy) !important;
+    caret-color: var(--navy);
+    font-family: var(--font) !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    box-shadow: none !important;
+}
+
+.stTextInput input::placeholder {
+    color: var(--navy) !important;
+    -webkit-text-fill-color: var(--navy) !important;
+    opacity: 0.87 !important;
+    font-weight: 500 !important;
+}
+
+.stTextInput [data-baseweb="input"]:focus-within {
+    outline: 3px solid rgba(127, 159, 188, 0.62);
+    outline-offset: 2px;
+}
+
+.stTextInput [data-testid="stWidgetLabel"] {
+    margin-bottom: 7px;
+}
+
+.stTextInput [data-testid="stWidgetLabel"] p {
+    color: var(--navy) !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    line-height: 1.25 !important;
+    margin: 0 !important;
+}
+
+.stTextInput [data-testid="InputInstructions"] {
+    display: none !important;
+}
+
+/* Hide the small built-in "Press Enter to apply" hint in every Streamlit version. */
+div[data-testid="InputInstructions"],
+small[data-testid="InputInstructions"],
+[data-testid="stTextInput"] small {
+    display: none !important;
+}
+
+/* Underline-only search field */
+.st-key-student_search {
+    margin: 4px 0 24px 0;
+}
+
+.st-key-student_search div[data-baseweb="input"],
+.st-key-student_search [data-testid="stTextInputRootElement"] {
+    height: 48px;
+    border: 0 !important;
+    border-bottom: 1.5px solid var(--slate) !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    overflow: visible;
+}
+
+.st-key-student_search input:focus-visible {
+    outline: none !important;
+}
+
+.st-key-student_search [data-testid="stTextInputRootElement"]:focus-within,
+.st-key-student_search div[data-baseweb="input"]:focus-within {
+    outline: none !important;
+    border-bottom-color: var(--navy) !important;
+    box-shadow: 0 2px 0 rgba(27, 58, 92, 0.55) !important;
+}
+
+.st-key-student_search input {
+    height: 48px !important;
+    padding: 2px 3px 8px !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    color: var(--slate) !important;
+    -webkit-text-fill-color: var(--slate) !important;
+    font-size: 20px !important;
+    font-weight: 400 !important;
+}
+
+.st-key-student_search input::placeholder {
+    color: var(--slate) !important;
+    -webkit-text-fill-color: var(--slate) !important;
+    opacity: 1 !important;
+}
+
+/* Browser camera widgets */
+[data-testid="stCameraInput"] {
+    overflow: hidden;
+    border-radius: 22px !important;
+}
+
+[data-testid="stCameraInput"] video,
+[data-testid="stCameraInput"] img {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 18px !important;
+    background: var(--tile) !important;
+    object-fit: cover !important;
+}
+
+[data-testid="stCameraInputWebcamStyledBox"] {
+    background: var(--tile) !important;
+}
+
+[data-testid="stCameraInput"] button,
+[data-testid="stCameraInput"] button[data-testid^="stBaseButton-"] {
+    height: 40px !important;
+    min-height: 40px !important;
+    padding: 0 22px !important;
+    border: 0 !important;
+    border-radius: 999px !important;
+    background: var(--navy-button) !important;
+    color: var(--white) !important;
+    -webkit-text-fill-color: var(--white) !important;
+    font-family: var(--font) !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    box-shadow: none !important;
+}
+
+[data-testid="stCameraInput"] button:hover,
+[data-testid="stCameraInput"] button[data-testid^="stBaseButton-"]:hover {
+    background: var(--navy) !important;
+    color: var(--white) !important;
+}
+
+[data-testid="stCameraInput"] a {
+    color: var(--navy) !important;
+    font-weight: 600;
+}
+
+[data-testid="stCameraInput"] p,
+[data-testid="stCameraInput"] span {
+    color: var(--navy) !important;
+    font-family: var(--font) !important;
+}
+
+[data-testid="stCameraInput"] small {
+    color: var(--slate) !important;
+}
+
+[data-testid="stCameraInput"] svg {
+    color: var(--slate) !important;
+    fill: var(--slate) !important;
+}
+
+/* File uploader */
+[data-testid="stFileUploaderDropzone"] {
+    min-height: 132px;
+    padding: 18px !important;
+    border: 1.5px dashed var(--slate) !important;
+    border-radius: 22px !important;
+    background: rgba(184, 203, 220, 0.42) !important;
+}
+
+[data-testid="stFileUploaderDropzone"] * {
+    color: var(--navy) !important;
+}
+
+[data-testid="stFileUploaderDropzone"] small {
+    color: var(--slate) !important;
+    font-size: 12px !important;
+}
+
+[data-testid="stFileUploaderDropzone"] button[data-testid^="stBaseButton-"] {
+    height: 36px !important;
+    min-height: 36px !important;
+    padding: 0 16px !important;
+    border-radius: 999px !important;
+    background: var(--input) !important;
+    color: var(--navy) !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+}
+
+/* --------------------------------------------------------------------------
+   Inline feedback
+   -------------------------------------------------------------------------- */
+
+.inline-alert {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    margin: 10px 0 14px 0;
+    padding: 10px 14px;
+    border-radius: 14px;
+    background: rgba(184, 203, 220, 0.35);
+    color: var(--navy);
+    font-size: 13.5px;
+    font-weight: 500;
+    line-height: 1.45;
+}
+
+.inline-alert--error {
+    color: var(--error);
+    background: rgba(142, 59, 49, 0.08);
+}
+
+.inline-alert-dot {
+    flex: 0 0 auto;
+    width: 7px;
+    height: 7px;
+    margin-top: 6px;
+    border-radius: 50%;
+    background: var(--slate);
+}
+
+.inline-alert--error .inline-alert-dot {
+    background: var(--error);
+}
+
+.fatal-card {
+    max-width: 680px;
+    margin: 10vh auto;
+    padding: 36px;
+    border-radius: 28px;
+    background: var(--card);
+}
+
+.fatal-card h1 {
+    margin: 0 0 10px;
+    font-size: 28px;
+}
+
+.fatal-card .fatal-copy {
+    margin: 0;
+    color: var(--slate);
+    font-size: 15px;
+    line-height: 1.55;
+}
+
+/* --------------------------------------------------------------------------
+   Sidebar
+   -------------------------------------------------------------------------- */
+
+section[data-testid="stSidebar"] {
+    width: var(--sidebar-width) !important;
+    min-width: var(--sidebar-width) !important;
+    max-width: var(--sidebar-width) !important;
+    background: var(--navy) !important;
+    border: 0 !important;
+}
+
+section[data-testid="stSidebar"] > div,
+section[data-testid="stSidebar"] [data-testid="stSidebarContent"],
+section[data-testid="stSidebar"] [data-testid="stSidebarUserContent"],
+section[data-testid="stSidebar"] .stSidebarContent {
+    background: var(--navy) !important;
+    border: 0 !important;
+}
+
+section[data-testid="stSidebar"] [data-testid="stSidebarHeader"] {
+    display: none !important;
+}
+
+section[data-testid="stSidebar"] [data-testid="stSidebarContent"] {
+    padding: 0 !important;
+}
+
+section[data-testid="stSidebar"] [data-testid="stSidebarUserContent"] {
+    width: 100% !important;
+    min-height: 100vh !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 38px var(--sidebar-pad) 96px var(--sidebar-pad) !important;
+    overflow-y: auto;
+}
+
+section[data-testid="stSidebar"] [data-testid="stVerticalBlock"] {
+    gap: 0.28rem !important;
+}
+
+section[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] {
+    color: var(--white);
+}
+
+.sidebar-logo-wrap {
+    display: flex;
+    justify-content: center;
+    margin: 0 0 38px 0;
+}
+
+.sidebar-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 86px;
+    height: 38px;
+    border-radius: 999px;
+    background: var(--cream);
+    color: var(--navy);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.07em;
+    line-height: 1;
+}
+
+.sidebar-logo-image {
+    display: block;
+    width: 86px;
+    max-height: 48px;
+    object-fit: contain;
+    border-radius: 999px;
+}
+
+section[data-testid="stSidebar"] div.stButton > button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100% !important;
+    height: 42px !important;
+    min-height: 42px !important;
+    padding: 0 12px !important;
+    border: 0 !important;
+    border-radius: 999px !important;
+    background: transparent !important;
+    color: var(--white) !important;
+    box-shadow: none !important;
+    font-family: var(--font) !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.01em;
+}
+
+section[data-testid="stSidebar"] div.stButton > button:hover {
+    background: rgba(248, 246, 238, 0.1) !important;
+    color: var(--white) !important;
+}
+
+section[data-testid="stSidebar"]
+div.stButton > button[data-testid="stBaseButton-primary"] {
+    background: var(--input) !important;
+    color: var(--navy) !important;
+    font-weight: 800 !important;
+}
+
+section[data-testid="stSidebar"]
+div.stButton > button[data-testid="stBaseButton-primary"]:hover {
+    background: var(--input) !important;
+    color: var(--navy) !important;
+}
+
+section[data-testid="stSidebar"] div[class*="st-key-logout_nav"] {
+    position: fixed !important;
+    left: calc(var(--sidebar-pad) + 10px);
+    bottom: 22px;
+    width: calc(var(--sidebar-width) - 72px) !important;
+    z-index: 1000;
+}
+
+section[data-testid="stSidebar"] div[class*="st-key-logout_nav"] button {
+    font-size: 16px !important;
+}
+
+/* --------------------------------------------------------------------------
+   Shared page furniture
+   -------------------------------------------------------------------------- */
+
+.page-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 24px;
+    margin: 0 0 26px 0;
+}
+
+.page-header h1 {
+    margin: 0;
+    padding: 0 !important;
+    color: var(--navy);
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -0.035em;
+}
+
+.page-header-meta {
+    color: var(--navy);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+}
+
+/* --------------------------------------------------------------------------
+   Login
+   -------------------------------------------------------------------------- */
+
+.st-key-login_page {
+    min-height: calc(100vh - 5.4rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.st-key-login_page > div[data-testid="stVerticalBlock"] {
+    min-height: calc(100vh - 5.4rem);
+    justify-content: center;
+}
+
+.st-key-login_page [data-testid="stHorizontalBlock"] {
+    align-items: center;
+    gap: clamp(2rem, 5vw, 5.5rem) !important;
+}
+
+.login-bubble-wrap {
+    position: relative;
+    width: min(100%, 500px);
+    aspect-ratio: 470 / 380;
+    margin: 0 auto 0 0;
+    color: var(--navy);
+}
+
+.login-bubble-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+.login-bubble-inner {
+    position: absolute;
+    left: 15%;
+    right: 21%;
+    top: 17%;
+    bottom: 13%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    text-align: center;
+}
+
+.login-bubble-mascot {
+    color: var(--mascot-navy);
+    line-height: 0;
+}
+
+.login-bubble-mascot svg {
+    width: clamp(132px, 15vw, 188px);
+    height: auto;
+    overflow: visible;
+}
+
+.login-greeting {
+    margin: 0;
+    color: var(--navy);
+    font-size: 19px;
+    font-weight: 600;
+    line-height: 1.35;
+    letter-spacing: -0.025em;
+    text-align: center;
+}
+
+.st-key-login_panel {
+    width: 100%;
+    max-width: 362px;
+    margin: 0 auto;
+}
+
+.st-key-login_panel h1.login-title {
+    margin: 0;
+    padding: 0 !important;
+    color: var(--navy);
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: 0.015em;
+}
+
+.login-subtitle {
+    margin: 7px 0 23px 0;
+    color: var(--slate);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+[data-testid="stForm"] {
+    padding: 0 !important;
+    border: 0 !important;
+    background: transparent !important;
+}
+
+.st-key-login_panel [data-testid="stVerticalBlock"] {
+    gap: 12px !important;
+}
+
+.st-key-login_panel [data-testid="stForm"] > div {
+    gap: 12px !important;
+}
+
+.st-key-login_panel [data-baseweb="input"] {
+    height: 49px;
+}
+
+.st-key-login_panel input {
+    height: 49px !important;
+    font-size: 16px !important;
+}
+
+.st-key-login_panel [data-testid="stFormSubmitButton"] {
+    margin-top: 3px;
+}
+
+.st-key-login_panel [data-testid="stFormSubmitButton"] button {
+    width: 100%;
+    height: 51px !important;
+    min-height: 51px !important;
+    border: 0 !important;
+    border-radius: 999px !important;
+    background: var(--navy-button) !important;
+    color: var(--white) !important;
+    font-size: 22px !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.01em;
+}
+
+.st-key-login_panel [data-testid="stFormSubmitButton"] button:hover {
+    background: var(--navy) !important;
+    color: var(--white) !important;
+}
+
+.login-error-anchor {
+    margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Dashboard
+   -------------------------------------------------------------------------- */
+
+.st-key-dashboard_page .page-header {
+    margin-bottom: 28px;
+}
+
+.st-key-dashboard_stats {
+    margin-bottom: 22px;
+}
+
+.st-key-dashboard_stats [data-testid="stHorizontalBlock"] {
+    gap: 26px !important;
+    align-items: stretch;
+}
+
+.st-key-dashboard_stats [data-testid="stColumn"] {
+    display: flex;
+}
+
+.st-key-dashboard_stats [data-testid="stVerticalBlock"] {
+    width: 100%;
+    gap: 0 !important;
+}
+
+.stat-card {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 132px;
+    width: 100%;
+    padding: 22px 18px;
+    border-radius: var(--card-radius);
+    background: var(--card);
+}
+
+.stat-label {
+    margin: 0;
+    color: var(--slate);
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.25;
+}
+
+.stat-value {
+    margin: 7px 0 0;
+    color: var(--navy);
+    font-size: 44px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.045em;
+    font-variant-numeric: tabular-nums;
+}
+
+.activity-card {
+    width: 100%;
+    min-height: 306px;
+    padding: 27px 32px 22px;
+    border-radius: 28px;
+    background: var(--card);
+}
+
+.activity-card h2 {
+    margin: 0;
+    padding: 0 !important;
+    color: var(--navy);
+    font-size: 23px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+}
+
+.activity-list {
+    margin-top: 8px;
+}
+
+.activity-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    min-height: 46px;
+    border-bottom: 1px solid var(--line);
+}
+
+.activity-row:last-child {
+    border-bottom: 0;
+}
+
+.activity-copy {
+    margin: 0;
+    color: var(--navy);
+    font-size: 14.5px;
+    font-weight: 400;
+    line-height: 1.3;
+}
+
+.activity-copy strong {
+    font-weight: 600;
+}
+
+.activity-copy span {
+    color: var(--slate);
+}
+
+.activity-time {
+    flex: 0 0 auto;
+    color: var(--slate);
+    font-size: 13px;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+}
+
+.activity-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 216px;
+    gap: 3px;
+    color: var(--slate);
+    text-align: center;
+}
+
+.activity-empty-mark {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    margin-bottom: 5px;
+    border-radius: 50%;
+    background: rgba(248, 246, 238, 0.58);
+    color: var(--slate);
+    font-size: 24px;
+}
+
+.activity-empty-title {
+    margin: 0;
+    color: var(--navy);
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.activity-empty-copy {
+    color: var(--slate);
+    font-size: 13px;
+    font-weight: 400;
+}
+
+/* --------------------------------------------------------------------------
+   Students
+   -------------------------------------------------------------------------- */
+
+.st-key-students_header .page-header {
+    margin: 0;
+}
+
+.st-key-students_header {
+    margin-bottom: 4px;
+}
+
+.st-key-add_student_btn {
+    display: flex !important;
+    justify-content: flex-end;
+    padding-top: 8px !important;
+}
+
+.st-key-add_student_btn div.stButton > button {
+    width: 164px !important;
+    min-width: 164px !important;
+    height: 42px !important;
+    min-height: 42px !important;
+    padding: 0 18px !important;
+    border-radius: 999px !important;
+    background: var(--input) !important;
+    color: var(--navy) !important;
+    font-size: 13.5px !important;
+    font-weight: 700 !important;
+}
+
+.st-key-add_student_btn div.stButton > button::before {
+    content: "+";
+    margin-right: 8px;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 0;
+    transform: translateY(-1px);
+}
+
+.st-key-add_student_btn div.stButton > button:hover {
+    background: #aec2d3 !important;
+    color: var(--navy) !important;
+}
+
+.st-key-students_grid {
+    margin: 0 0 6px 0;
+}
+
+.st-key-students_grid [data-testid="stHorizontalBlock"] {
+    gap: 28px !important;
+    align-items: flex-start;
+    margin-bottom: 28px;
+}
+
+.st-key-students_grid [data-testid="stColumn"] {
+    display: flex;
+    justify-content: center;
+}
+
+div[class*="st-key-student_card_"] {
+    position: relative;
+    width: 100%;
+    max-width: 238px;
+    min-height: 291px;
+    padding: 16px 16px 48px 16px;
+    border-radius: var(--card-radius);
+    background: var(--card);
+    overflow: visible;
+}
+
+div[class*="st-key-student_card_"] [data-testid="stVerticalBlock"] {
+    gap: 0 !important;
+}
+
+div[class*="st-key-student_card_"] [data-testid="stMarkdownContainer"] {
+    width: 100%;
+}
+
+.student-card-content {
+    width: 100%;
+}
+
+.student-photo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: 7px;
+    background: var(--tile);
+}
+
+.student-photo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.student-photo-fallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    color: rgba(248, 246, 238, 0.55);
+    font-size: 34px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+}
+
+.student-name {
+    margin: 11px 0 0;
+    overflow: hidden;
+    color: var(--navy);
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.3;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.student-status {
+    margin: 3px 0 0;
+    color: var(--slate);
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.3;
+}
+
+/* The real buttons live above the card markup; only their icons are visible. */
+div[class*="st-key-edit_student_"],
+div[class*="st-key-delete_student_"] {
+    position: absolute !important;
+    bottom: 14px;
+    width: 24px !important;
+    height: 24px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    z-index: 4;
+}
+
+div[class*="st-key-edit_student_"] {
+    right: 46px;
+}
+
+div[class*="st-key-delete_student_"] {
+    right: 16px;
+}
+
+.stApp div[class*="st-key-edit_student_"] button,
+.stApp div[class*="st-key-delete_student_"] button {
+    width: 24px !important;
+    min-width: 24px !important;
+    height: 24px !important;
+    min-height: 24px !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 5px !important;
+    background-color: transparent !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    background-size: 17px 17px !important;
+    color: transparent !important;
+    -webkit-text-fill-color: transparent !important;
+    font-size: 0 !important;
+    line-height: 0 !important;
+    box-shadow: none !important;
+}
+
+.stApp div[class*="st-key-edit_student_"] button {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%231B3A5C' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 20h9'/%3E%3Cpath d='M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z'/%3E%3C/svg%3E") !important;
+}
+
+.stApp div[class*="st-key-delete_student_"] button {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%231B3A5C' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 6h18'/%3E%3Cpath d='M8 6V4h8v2'/%3E%3Cpath d='M19 6l-1 14H6L5 6'/%3E%3Cpath d='M10 11v5'/%3E%3Cpath d='M14 11v5'/%3E%3C/svg%3E") !important;
+}
+
+.stApp div[class*="st-key-edit_student_"] button:hover,
+.stApp div[class*="st-key-delete_student_"] button:hover {
+    background-color: rgba(248, 246, 238, 0.55) !important;
+}
+
+.students-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 280px;
+    margin-top: 6px;
+    padding: 38px 24px;
+    border: 1.5px dashed rgba(91, 118, 144, 0.55);
+    border-radius: 28px;
+    background: rgba(197, 209, 216, 0.22);
+    text-align: center;
+}
+
+.students-empty-mark {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 12px;
+    border-radius: 50%;
+    background: var(--card);
+    color: var(--navy);
+    font-size: 26px;
+    font-weight: 400;
+    line-height: 1;
+}
+
+.students-empty-title {
+    margin: 0 0 4px;
+    color: var(--navy);
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.students-empty-copy {
+    color: var(--slate);
+    font-size: 13.5px;
+    line-height: 1.5;
+}
+
+.pagination-label {
+    margin: 0;
+    color: var(--slate);
+    font-size: 13px;
+    font-weight: 500;
+    text-align: center;
+}
+
+[data-testid="stColumn"]:has(.pagination-label) {
+    align-self: center;
+}
+
+.st-key-students_previous div.stButton > button,
+.st-key-students_next div.stButton > button {
+    height: 38px !important;
+    min-height: 38px !important;
+    background: rgba(197, 209, 216, 0.56) !important;
+    font-size: 13px !important;
+}
+
+/* --------------------------------------------------------------------------
+   Attendance
+   -------------------------------------------------------------------------- */
+
+.st-key-attendance_page .page-header {
+    margin-bottom: 19px;
+}
+
+.st-key-attendance_stage {
+    max-width: 880px;
+    margin-top: 4px;
+}
+
+.st-key-attendance_stage [data-testid="stHorizontalBlock"] {
+    gap: 0 !important;
+    align-items: center;
+}
+
+.st-key-attendance_stage [data-testid="stColumn"] {
+    min-width: 0;
+}
+
+.attendance-mascot {
+    position: relative;
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-right: 0;
+    transform: translateX(56px);
+    color: var(--mascot-navy);
+    line-height: 0;
+    pointer-events: none;
+}
+
+.attendance-mascot svg {
+    display: block;
+    width: min(100%, 300px);
+    height: auto;
+    overflow: visible;
+}
+
+.st-key-scan_panel {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: min(100%, 420px);
+    min-height: 300px;
+    margin-left: 6px;
+    padding: 32px 36px;
+    border-radius: var(--squircle-radius);
+    background: var(--card);
+    overflow: hidden;
+}
+
+.st-key-scan_panel > div[data-testid="stVerticalBlock"] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 10px !important;
+}
+
+.st-key-scan_panel [data-testid="stMarkdownContainer"] {
+    width: 100%;
+}
+
+/* The viewfinder is drawn by an empty markdown block.  Streamlit wraps that
+   block in a zero-height, position:relative element container, which would
+   collapse the absolute overlay; let the 420x300 panel be its anchor. */
+.st-key-scan_panel [data-testid="stElementContainer"]:has(.viewfinder) {
+    position: static !important;
+}
+
+.viewfinder {
+    position: absolute;
+    inset: 22px;
+    z-index: 3;
+    width: auto;
+    height: auto;
+    pointer-events: none;
+}
+
+.viewfinder-corner {
+    position: absolute;
+    width: 46px;
+    height: 46px;
+    border: 4px solid #496982;
+    border-radius: 12px;
+}
+
+.viewfinder-corner--tl {
+    top: 0;
+    left: 0;
+    border-right: 0;
+    border-bottom: 0;
+}
+
+.viewfinder-corner--tr {
+    top: 0;
+    right: 0;
+    border-left: 0;
+    border-bottom: 0;
+}
+
+.viewfinder-corner--bl {
+    bottom: 0;
+    left: 0;
+    border-top: 0;
+    border-right: 0;
+}
+
+.viewfinder-corner--br {
+    right: 0;
+    bottom: 0;
+    border-top: 0;
+    border-left: 0;
+}
+
+.st-key-scan_start,
+.st-key-scan_again {
+    position: relative;
+    z-index: 5;
+}
+
+.st-key-scan_start div.stButton > button,
+.st-key-scan_again div.stButton > button {
+    width: auto !important;
+    min-width: 142px !important;
+    height: 50px !important;
+    min-height: 50px !important;
+    padding: 0 28px !important;
+    border: 0 !important;
+    border-radius: 2px !important;
+    background: var(--navy) !important;
+    color: var(--white) !important;
+    font-size: 16px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.055em !important;
+    text-transform: uppercase;
+}
+
+.st-key-scan_start div.stButton > button:hover,
+.st-key-scan_again div.stButton > button:hover {
+    background: var(--navy-button) !important;
+    color: var(--white) !important;
+}
+
+.scan-result {
+    position: relative;
+    z-index: 5;
+    width: 100%;
+    margin: 0 0 16px;
+    text-align: center;
+}
+
+.scan-result-line {
+    margin: 0;
+    overflow-wrap: anywhere;
+    color: var(--navy);
+    font-size: clamp(31px, 3.45vw, 44px);
+    font-weight: 300;
+    line-height: 1.3;
+    letter-spacing: -0.035em;
+}
+
+.scan-result-name {
+    font-weight: 300;
+}
+
+.scan-result-note {
+    max-width: 292px;
+    margin: 11px auto 0;
+    color: var(--slate);
+    font-size: 12.5px;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+.st-key-scan_panel [data-testid="stCameraInput"] {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.st-key-scan_panel [data-testid="stCameraInput"] > div {
+    border-radius: 22px !important;
+}
+
+.camera-hint {
+    position: relative;
+    z-index: 5;
+    margin: 3px 0 0 !important;
+    color: var(--slate);
+    font-size: 11.5px;
+    font-weight: 500;
+    line-height: 1.35;
+    text-align: center;
+}
+
+.st-key-cancel_camera {
+    position: relative;
+    z-index: 5;
+    margin-top: -2px;
+}
+
+.st-key-cancel_camera div.stButton > button {
+    height: 31px !important;
+    min-height: 31px !important;
+    padding: 0 14px !important;
+    background: transparent !important;
+    color: var(--slate) !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+}
+
+.st-key-cancel_camera div.stButton > button:hover {
+    background: rgba(248, 246, 238, 0.5) !important;
+    color: var(--navy) !important;
+}
+
+.scan-footnote {
+    max-width: 650px;
+    margin: 22px 0 0 !important;
+    color: var(--slate);
+    font-size: 12.5px;
+    font-weight: 500;
+    line-height: 1.45;
+}
+
+/* --------------------------------------------------------------------------
+   Dialogs
+   -------------------------------------------------------------------------- */
+
+div[role="dialog"],
+div[data-testid="stDialog"] > div {
+    border: 0 !important;
+    border-radius: 28px !important;
+    background: var(--cream) !important;
+    box-shadow: 0 18px 70px rgba(27, 58, 92, 0.18) !important;
+}
+
+div[role="dialog"] h2,
+div[data-testid="stDialog"] h2 {
+    color: var(--navy) !important;
+    font-size: 26px !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.025em;
+}
+
+div[data-testid="stDialog"] [data-testid="stVerticalBlock"] {
+    gap: 13px !important;
+}
+
+div[data-testid="stDialog"] [data-baseweb="input"] {
+    height: 46px;
+    background: var(--input) !important;
+}
+
+div[data-testid="stDialog"] input {
+    height: 46px !important;
+    font-size: 15px !important;
+}
+
+.dialog-section-label {
+    margin: 7px 0 -2px;
+    color: var(--navy);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.dialog-field-label {
+    display: block;
+    margin: 0 0 7px;
+    color: var(--navy);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.dialog-hint {
+    margin: 1px 0 2px;
+    color: var(--slate);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.45;
+}
+
+.dialog-photo-block {
+    margin-top: 3px;
+}
+
+.dialog-photo-preview {
+    position: relative;
+    width: 76px;
+    height: 76px;
+    overflow: hidden;
+    border-radius: 13px;
+    background: var(--tile);
+}
+
+.dialog-photo-preview img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.dialog-photo-preview--empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px dashed rgba(91, 118, 144, 0.55);
+    background: rgba(184, 203, 220, 0.28);
+    color: var(--slate);
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-align: center;
+}
+
+.dialog-warning {
+    margin: 4px 0 0;
+    color: var(--navy);
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.4;
+}
+
+.dialog-warning strong {
+    font-weight: 700;
+}
+
+.dialog-warning-copy {
+    margin: 1px 0 9px;
+    color: var(--slate);
+    font-size: 13.5px;
+    line-height: 1.5;
+}
+
+div[class*="st-key-confirm_delete_"] div.stButton > button {
+    background: var(--error) !important;
+    color: var(--white) !important;
+    -webkit-text-fill-color: var(--white) !important;
+}
+
+div[class*="st-key-confirm_delete_"] div.stButton > button:hover {
+    background: #783027 !important;
+    color: var(--white) !important;
+}
+
+div[data-testid="stDialog"] [data-testid="stFileUploaderDropzone"] {
+    min-height: 126px;
+}
+
+div[data-testid="stDialog"] [data-testid="stCameraInput"] {
+    border-radius: 18px;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive refinements
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 1180px) {
+    :root {
+        --sidebar-width: 196px;
+    }
+
+    [data-testid="stMainBlockContainer"],
+    [data-testid="stAppViewBlockContainer"],
+    .block-container {
+        padding: 1.9rem 2.15rem 2.8rem !important;
+    }
+
+    .page-header h1 {
+        font-size: 36px;
+    }
+
+    .st-key-scan_panel {
+        border-radius: 60px;
+        padding: 31px 33px;
+    }
+
+    .login-bubble-wrap {
+        width: min(100%, 445px);
+    }
+}
+
+@media (max-width: 940px) {
+    :root {
+        --sidebar-width: 184px;
+    }
+
+    .page-header h1 {
+        font-size: 33px;
+    }
+
+    .st-key-attendance_stage {
+        max-width: 100%;
+    }
+
+    .attendance-mascot {
+        transform: translateX(38px);
+    }
+
+    .attendance-mascot svg {
+        width: min(100%, 238px);
+    }
+
+    .st-key-scan_panel {
+        min-height: 300px;
+        border-radius: 52px;
+        padding: 27px;
+    }
+
+    .scan-result-line {
+        font-size: 32px;
+    }
+
+    .st-key-login_page [data-testid="stHorizontalBlock"] {
+        flex-direction: column;
+        gap: 1.2rem !important;
+    }
+
+    .st-key-login_page [data-testid="stColumn"] {
+        width: 100% !important;
+        flex: 1 1 100% !important;
+    }
+
+    .login-bubble-wrap {
+        width: min(100%, 360px);
+        margin: 0 auto;
+    }
+
+    .st-key-login_panel {
+        max-width: 390px;
+    }
+
+    .st-key-login_panel h1.login-title {
+        font-size: 32px;
+    }
+
+    .st-key-students_grid [data-testid="stHorizontalBlock"] {
+        gap: 16px !important;
+    }
+
+    div[class*="st-key-student_card_"] {
+        max-width: 210px;
+    }
+
+    .activity-card {
+        padding: 24px;
+    }
+}
+
+@media (max-width: 680px) {
+    [data-testid="stMainBlockContainer"],
+    [data-testid="stAppViewBlockContainer"],
+    .block-container {
+        padding: 1.5rem 1.2rem 2.5rem !important;
+    }
+
+    .st-key-dashboard_stats [data-testid="stHorizontalBlock"] {
+        gap: 10px !important;
+    }
+
+    .stat-card {
+        min-height: 110px;
+        padding: 16px 8px;
+    }
+
+    .stat-label {
+        font-size: 12px;
+    }
+
+    .stat-value {
+        font-size: 35px;
+    }
+
+    .activity-card {
+        padding: 20px;
+    }
+
+    .activity-copy {
+        font-size: 13px;
+    }
+
+    .st-key-attendance_stage [data-testid="stHorizontalBlock"] {
+        flex-direction: column;
+    }
+
+    .attendance-mascot {
+        margin-right: 0;
+        transform: none;
+        justify-content: center;
+    }
+
+    .st-key-scan_panel {
+        margin: 0 auto;
+        width: 100%;
+    }
+
+    .st-key-students_grid [data-testid="stHorizontalBlock"] {
+        flex-wrap: wrap;
+    }
+
+    .st-key-students_grid [data-testid="stColumn"] {
+        flex: 1 1 46%;
+        min-width: 200px;
+    }
+
+    div[class*="st-key-student_card_"] {
+        max-width: 220px;
+    }
+}
